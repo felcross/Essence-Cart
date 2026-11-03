@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Aura — Perfumes & Cuidados"
+description = "Uma loja demonstrativa de perfumes e cremes para o público feminino, com cinco produtos fictícios, carrinho de compras e fluxo de finalização simulado para testar a experiência."
+version = "1.0.0"
+id = "artifacts/beleza-feminina"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18489
+
+[services.development]
+run = "pnpm --filter @workspace/beleza-feminina run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/beleza-feminina", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/beleza-feminina/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18489"
+BASE_PATH = "/"
